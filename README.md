@@ -27,4 +27,5 @@ However, anybody can use it as a starter point for their own application for loc
 Image example is located in ***WL\data*** folder.
 
 ![Main Screen](WL/data/Example.png)
+
 ***Fig.*** Main screen window
