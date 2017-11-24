@@ -1,0 +1,425 @@
+﻿<Window x:Class="WL.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:src="clr-namespace:WL"
+    Title="WL Test Evaluation Form" Height="982" Width="902" Background="DarkGray"
+	WindowState="Maximized"
+    Loaded="WindowLoaded">
+    <Window.Resources>
+        <Style x:Key="checkBoxStyle" TargetType="{x:Type CheckBox}">
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="menuStyle" TargetType="{x:Type Menu}">
+            <Setter Property="Foreground" Value="DarkBlue" />
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Margin" Value="2,2,2,2"/>
+            <Setter Property="DockPanel.Dock" Value="Top"/>
+        </Style>
+
+        <Style x:Key="radioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="labelStyle" TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="6,0,6,0"/>
+        </Style>
+
+        <Style x:Key="textBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="6,0,6,0"/>
+        </Style>
+
+        <Style x:Key="textBoxStyleRO" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="LemonChiffon" />
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="6,0,6,0"/>
+        </Style>
+
+        <Style x:Key="buttonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="6,0,6,0"/>
+            <Setter Property="BorderBrush" Value="CornflowerBlue"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
+        <Style x:Key="groupBoxStyle" TargetType="{x:Type GroupBox}">
+            <Setter Property="Foreground" Value="DarkBlue" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontStyle" Value="Oblique"/>
+            <Setter Property="BorderBrush" Value="CornflowerBlue"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
+        <Style x:Key="borderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="SeaShell" />
+            <Setter Property="BorderBrush" Value="CornflowerBlue"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Style.Triggers>
+                <Trigger Property="Selector.IsSelected" Value="True">
+                    <Setter Property="Background" Value="Moccasin" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="smallTitleStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <Style x:Key="smallTitleStyleAlternate" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Green" />
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <Style x:Key="textStyleTextBlock" TargetType="TextBlock">
+            <!--<Setter Property="Background" Value="LemonChiffon" />-->
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <Style x:Key="textStyleTextBlockAlternate" TargetType="TextBlock">
+            <!--<Setter Property="Background" Value="LemonChiffon" />-->
+            <Setter Property="Foreground" Value="Green" />
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <DataTemplate x:Key="groupingHeaderTemplate">
+            <TextBlock Text="{Binding Path=Name}" Foreground="Navy" FontWeight="Bold" FontSize="12"/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type src:BeamParams}">
+            <!--<Border BorderThickness="1" BorderBrush="Gray"
+                    Padding="7" Name="border" Margin="3" Width="500">-->
+            <Grid HorizontalAlignment="Stretch" Width="375">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Margin="2" Name="taTitle" Grid.Column="0"
+                               Style="{StaticResource smallTitleStyle}">Ta=</TextBlock>
+                <TextBlock Name="taValue" Grid.Column="1"
+                               Text="{Binding Path=Ta}" Style="{StaticResource textStyleTextBlock}"/>
+
+                <TextBlock Margin="2" Name="gaTitle" Grid.Column="2"
+                               Style="{StaticResource smallTitleStyle}">Ga=</TextBlock>
+                <TextBlock Name="gaValue" Grid.Column="3"
+                               Text="{Binding Path=Ga}" Style="{StaticResource textStyleTextBlock}"/>
+
+                <TextBlock Margin="2" Name="caTitle" Grid.Column="4"
+                               Style="{StaticResource smallTitleStyle}">Ca=</TextBlock>
+                <TextBlock Name="caValue" Grid.Column="5"
+                               Text="{Binding Path=Ca}" Style="{StaticResource textStyleTextBlock}"/>
+
+                <TextBlock Margin="2" Name="mxTitle" Grid.Column="6"
+                               Style="{StaticResource smallTitleStyleAlternate}">MX:</TextBlock>
+                <TextBlock Name="mxValue" Grid.Column="7"
+                               Text="{Binding Path=Mlc.X, StringFormat=\{0:F2\}}" Style="{StaticResource textStyleTextBlockAlternate}"/>
+
+                <TextBlock Margin="2" Name="myTitle" Grid.Column="8"
+                               Style="{StaticResource smallTitleStyleAlternate}">MY:</TextBlock>
+                <TextBlock Name="myValue" Grid.Column="9"
+                               Text="{Binding Path=Mlc.Y, StringFormat=\{0:F2\}}" Style="{StaticResource textStyleTextBlockAlternate}"/>
+
+                <TextBlock Margin="2" Name="cxTitle" Grid.Column="10"
+                               Style="{StaticResource smallTitleStyleAlternate}">CX:</TextBlock>
+                <TextBlock Name="cxValue" Grid.Column="11"
+                               Text="{Binding Path=CC.X, StringFormat=\{0:F2\}}" Style="{StaticResource textStyleTextBlockAlternate}"/>
+
+                <TextBlock Margin="2" Name="cyTitle" Grid.Column="12"
+                               Style="{StaticResource smallTitleStyleAlternate}">CY:</TextBlock>
+                <TextBlock Name="cyValue" Grid.Column="13"
+                               Text="{Binding Path=CC.Y, StringFormat=\{0:F2\}}" Style="{StaticResource textStyleTextBlockAlternate}" />
+            </Grid>
+            <!--</Border>-->
+
+        </DataTemplate>
+
+        <!--<src:BeamParams x:Key="ActiveBeam" />-->
+        <src:IsocenterParams x:Key="CcPosition" />
+        <src:IsocenterParams x:Key="MlcPosition" />
+        <CollectionViewSource Source="{Binding Source={x:Static Application.Current}, Path=BeamItems}" x:Key="beamItemsView" />
+
+    </Window.Resources>
+
+    <Grid Name="gridClientArea" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="23" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="414" />
+        </Grid.ColumnDefinitions>
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" Name="menuMain" Style="{StaticResource menuStyle}">
+            <MenuItem Header="Файл" Name="File">
+                <MenuItem Header="Новый" Name="New" ToolTip="Обработка нового теста" Click="New_Click" />
+                <MenuItem Header="Открыть" Name="Open" ToolTip="Открытие ранее обработанного теста" Click="Open_Click" />
+                <MenuItem Header="Выход" Name="Exit" ToolTip="Выход из программы" Click="Exit_Click" />
+            </MenuItem>
+            <MenuItem Header="Конфигурация" Name="Config" />
+            <MenuItem Header="Справка" Name="Help" />
+        </Menu>
+
+        <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource borderStyle}" Margin="8,4,4,4" Background="LightGray" BorderBrush="Black">
+            <Grid Name="gridLargeImage" Opacity="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Name="ImageLarge" Stretch="Uniform" MouseDown="OnMouseDown" Grid.Row="0" Grid.ColumnSpan="2" SizeChanged="ImageLarge_SizeChanged" />
+                <CheckBox Content="Flip Horisontal" Grid.Row="1" Margin="0,0,20,0" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                          Style="{StaticResource checkBoxStyle}"
+                          Name="checkBoxFlipHorisontal" Checked="checkBoxFlipHorisontal_Checked" Unchecked="checkBoxFlipHorisontal_Unchecked" />
+                <CheckBox Content="Flip Vertical" Grid.Column="1" Grid.Row="1" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                          Style="{StaticResource checkBoxStyle}"
+                          Name="checkBoxFlipVertical" Checked="checkBoxFlipVertical_Checked" Unchecked="checkBoxFlipVertical_Unchecked" />
+            </Grid>
+        </Border>
+
+        <Grid Name="gridControls" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="1" Margin="4,4,8,4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="380" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="134" />
+                <RowDefinition Height="134" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource borderStyle}" Background="LightGray" BorderBrush="Black">
+                <Grid Canvas.Left="6" Canvas.Top="6" Height="350" Name="zoomImage" Width="390">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="28" />
+                        <RowDefinition />
+                        <RowDefinition Height="28" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="48" />
+                    </Grid.ColumnDefinitions>
+                    <Image Name="ImageSmall" Stretch="Fill" MouseDown="OnPreciseMouseDown" Grid.Row="1" Grid.Column="1" 
+                           Width="290" Height="290" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <RadioButton Content="G" Grid.Column="1" Grid.Row="0" Name="radioButtonGTop" 
+                                 Style="{StaticResource radioButtonStyle}" Checked="radioButtonGTop_Checked"/>
+                    <RadioButton Content="G" Grid.Column="2" Grid.Row="1" Name="radioButtonGRight" 
+                                 Style="{StaticResource radioButtonStyle}" Checked="radioButtonGRight_Checked"/>
+                    <RadioButton Content="G" Grid.Column="1" Grid.Row="2" Name="radioButtonGBottom" 
+                                 Style="{StaticResource radioButtonStyle}" Checked="radioButtonGBottom_Checked"/>
+                    <RadioButton Content="G" Grid.Column="0" Grid.Row="1" Name="radioButtonGLeft" 
+                                 Style="{StaticResource radioButtonStyle}" Checked="radioButtonGLeft_Checked"/>
+                </Grid>
+            </Border>
+            <GroupBox Grid.Row="2" Header="Совмещение пучка" Name="groupBoxBeamFit" Style="{StaticResource groupBoxStyle}" BorderBrush="Black" Background="LightGray">
+                <Grid Name="gridBeamFit" Margin="4,0,4,4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.DataContext>
+                        <Binding Source="{StaticResource beamItemsView}"/>
+                    </Grid.DataContext>
+                    <Label Content="Dx" Grid.Column="1" Name="labelDx" Style="{StaticResource labelStyle}" />
+                    <Label Content="Dy" Grid.Column="2" Name="labelDy" Style="{StaticResource labelStyle}" />
+                    <Label Content="Конический коллиматор:" Grid.Column="0" Grid.Row="1" Name="labelConical" Style="{StaticResource labelStyle}" />
+                    <Label Content="MLC:" Grid.Column="0" Grid.Row="2" Name="labelMLC" Style="{StaticResource labelStyle}" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Name="textBoxConicalDx" Style="{StaticResource textBoxStyleRO}" >
+                        <Binding Path="CC.X" UpdateSourceTrigger="PropertyChanged" StringFormat="F2" />
+                    </TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="1" Name="textBoxConicalDy" Style="{StaticResource textBoxStyleRO}" >
+                        <Binding Path="CC.Y" UpdateSourceTrigger="PropertyChanged" StringFormat="F2" />
+                    </TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="2" Name="textBoxMlcDx" Style="{StaticResource textBoxStyleRO}" >
+                        <Binding Path="Mlc.X" UpdateSourceTrigger="PropertyChanged" StringFormat="F2" />
+                    </TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="2" Name="textBoxMlcDy" Style="{StaticResource textBoxStyleRO}" >
+                        <Binding Path="Mlc.Y" UpdateSourceTrigger="PropertyChanged" StringFormat="F2" />
+                    </TextBox>
+                    <Button Content="Auto Fuse" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Name="buttonAutoFuse" 
+                            Style="{StaticResource buttonStyle}" Click="buttonAutoFuse_Click"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="3" Header="Совмещение изоцентра" Name="groupBoxIsocenterFit" Style="{StaticResource groupBoxStyle}" BorderBrush="Black" Background="LightGray">
+                <Grid Name="gridIsocenterFit" Margin="4,0,4,4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="X" Grid.Column="1" Name="labelX" Style="{StaticResource labelStyle}" />
+                    <Label Content="Y" Grid.Column="2" Name="labelY" Style="{StaticResource labelStyle}" />
+                    <Label Content="Z" Grid.Column="3" Name="labelZ" Style="{StaticResource labelStyle}" />
+                    <Label Content="Конический коллиматор:" Grid.Column="0" Grid.Row="1" Name="labelConical2" Style="{StaticResource labelStyle}" />
+                    <Label Content="MLC:" Grid.Column="0" Grid.Row="2" Name="labelMLC2" Style="{StaticResource labelStyle}" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Name="textBoxConicalX" Style="{StaticResource textBoxStyleRO}" >
+                        <Binding Source="{StaticResource CcPosition}" Path="X" UpdateSourceTrigger="PropertyChanged" StringFormat="F2" />
+                    </TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="1" Name="textBoxConicalY" Style="{StaticResource textBoxStyleRO}" >
+                        <Binding Source="{StaticResource CcPosition}" Path="Y" UpdateSourceTrigger="PropertyChanged" StringFormat="F2" />
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="1" Name="textBoxConicalZ" Style="{StaticResource textBoxStyleRO}" >
+                        <Binding Source="{StaticResource CcPosition}" Path="Z" UpdateSourceTrigger="PropertyChanged" StringFormat="F2" />
+                    </TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="2" Name="textBoxMlcX" Style="{StaticResource textBoxStyleRO}" >
+                        <Binding Source="{StaticResource MlcPosition}" Path="X" UpdateSourceTrigger="PropertyChanged" StringFormat="F2" />
+                    </TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="2" Name="textBoxMlcY" Style="{StaticResource textBoxStyleRO}" >
+                        <Binding Source="{StaticResource MlcPosition}" Path="Y" UpdateSourceTrigger="PropertyChanged" StringFormat="F2" />
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="2" Name="textBoxMlcZ" Style="{StaticResource textBoxStyleRO}" >
+                        <Binding Source="{StaticResource MlcPosition}" Path="Z" UpdateSourceTrigger="PropertyChanged" StringFormat="F2" />
+                    </TextBox>
+                    <Button Content="Детали ..." Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Name="buttonDetails"
+                            Style="{StaticResource buttonStyle}" Click="buttonDetails_Click" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="4" Header="Список полей" Name="groupBoxBeamList" Style="{StaticResource groupBoxStyle}" BorderBrush="Black" Background="LightGray">
+                <Grid Name="gridBeamList">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="32"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Name="beamsList" Grid.Row="0" Grid.ColumnSpan="3" SelectionChanged="BeamList_SelectionChanged"           
+                             ItemsSource="{Binding Source={StaticResource beamItemsView}}">
+                        <ListBox.GroupStyle>
+                            <GroupStyle HeaderTemplate="{StaticResource groupingHeaderTemplate}" />
+                        </ListBox.GroupStyle>
+                    </ListBox>
+
+                    <Button Content="Сгрупировать" Grid.Column="0" Grid.Row="1" Name="buttonGroupBeams" 
+                            Style="{StaticResource buttonStyle}" Click="buttonGroupBeams_Click" />
+                    <Button Content="Добавить" Grid.Column="1" Grid.Row="1" Name="buttonAddBeam" 
+                            Style="{StaticResource buttonStyle}" Click="buttonAddBeam_Click" />
+                    <Button Content="Удалить" Grid.Column="2" Grid.Row="1" Name="buttonDeleteBeam" 
+                            Style="{StaticResource buttonStyle}" Click="buttonDeleteBeam_Click" />
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="Параметры поля" Name="groupBoxBeamParam" Style="{StaticResource groupBoxStyle}" BorderBrush="Black" Background="LightGray" Panel.ZIndex="0" BorderThickness="2" IsHitTestVisible="True" IsEnabled="True" Margin="0" Opacity="1" MinWidth="0" Padding="0" SnapsToDevicePixels="False" Foreground="DarkBlue">
+                <Grid Name="gridBeamParam" Margin="4,0,4,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="45" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="45" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="45" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.DataContext>
+                        <Binding Source="{StaticResource beamItemsView}" />
+                    </Grid.DataContext>
+                    <Label Content="Ta:" Grid.Column="0" HorizontalAlignment="Right" Name="labelTa" Style="{StaticResource labelStyle}" ToolTip="Угол поворота стола" />
+                    <Label Content="Ga:" Grid.Column="2" HorizontalAlignment="Right" Name="labelGa" Style="{StaticResource labelStyle}" ToolTip="Угол поворота головки" />
+                    <Label Content="Ca:" Grid.Column="4" HorizontalAlignment="Right" Name="labelCa" Style="{StaticResource labelStyle}" ToolTip="Угол поворота коллиматора" />
+                    <TextBox Grid.Column="1" Name="textBoxTa" Style="{StaticResource textBoxStyle}">
+                        <Binding Path="Ta" UpdateSourceTrigger="PropertyChanged" />
+                    </TextBox>
+                    <TextBox Grid.Column="3" Name="textBoxGa" Style="{StaticResource textBoxStyle}">
+                        <Binding Path="Ga" UpdateSourceTrigger="PropertyChanged" />
+                    </TextBox>
+                    <TextBox Grid.Column="6" Name="textBoxCa" Style="{StaticResource textBoxStyle}">
+                        <Binding Path="Ca" UpdateSourceTrigger="PropertyChanged" />
+                    </TextBox>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <StatusBar Grid.Row="2" Grid.ColumnSpan="2" >
+            <StatusBarItem Name="Date" ToolTip="Дата проведения WL теста">Date</StatusBarItem>
+        </StatusBar>
+
+    </Grid>
+</Window>
